@@ -12,6 +12,12 @@ module.exports = {
         sans: ["Inter", "sans-serif"],
       },
       colors: {
+        nsblue1: "#082d41", // Azul oscuro principal
+        nsblue2: "#1b5f6f", // Azul secundario
+        nsblue3: "#165666", // Azul intermedio
+        nsblue4: "#0b4456", // Azul profundo
+        nsorange: "#e85814", // Naranja acento
+        nswhite: "#ffffff", // Blanco
         primary: {
           DEFAULT: "#3d63dd",
           color: "#fff",

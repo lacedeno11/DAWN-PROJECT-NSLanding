@@ -10,10 +10,10 @@
     @apply w-3 h-3;
   }
   ::-webkit-scrollbar-track {
-    @apply bg-primary-light-1 dark:bg-primary-dark-1;
+    @apply bg-nsblue1;
   }
   ::-webkit-scrollbar-thumb {
-    @apply bg-body-light-9 dark:bg-body-dark-9 border-2 border-solid border-primary-light-1 dark:border-primary-dark-1 rounded;
+    @apply bg-nsblue2 border-2 border-solid border-nsblue1 rounded;
   }
   ::-webkit-scrollbar-corner {
     @apply bg-transparent;
@@ -36,7 +36,7 @@
   }
 
   body {
-    @apply text-[14px]/normal font-sans bg-primary-light-1 dark:bg-primary-dark-1 lg:text-base;
+    @apply text-base font-sans bg-nsblue1;
   }
 
   [tabindex] {
@@ -48,7 +48,7 @@
   }
 
   a {
-    @apply text-balance break-words text-primary-light-11 hover:text-primary-light-10 dark:text-primary-dark-11 dark:hover:text-primary-dark-10 no-underline;
+    @apply text-nsorange hover:text-nsblue2 no-underline;
   }
 
   a,
@@ -72,7 +72,7 @@
   }
 
   strong {
-    @apply font-bold text-body-light-12 dark:text-body-dark-12;
+    @apply font-bold text-nsorange;
   }
 
   h1,
@@ -81,7 +81,7 @@
   h4,
   h5,
   h6 {
-    @apply text-pretty text-body-light-12 dark:text-body-dark-12 m-0 font-bold;
+    @apply text-nsblue1 m-0 font-bold;
   }
 
   h1 {
@@ -121,14 +121,14 @@
   .page-loading {
     background-image: radial-gradient(
       circle at top right,
-      rgba(61, 99, 221, 0.1) 0%,
-      rgba(61, 99, 221, 0.1) 28%,
-      rgba(61, 99, 221, 0.075) 28%,
-      rgba(61, 99, 221, 0.075) 45%,
-      rgba(61, 99, 221, 0.05) 45%,
-      rgba(61, 99, 221, 0.05) 63%,
-      rgba(61, 99, 221, 0.025) 63%,
-      rgba(61, 99, 221, 0.025) 100%
+      rgba(27, 95, 111, 0.1) 0%,
+      rgba(27, 95, 111, 0.1) 28%,
+      rgba(27, 95, 111, 0.075) 28%,
+      rgba(27, 95, 111, 0.075) 45%,
+      rgba(27, 95, 111, 0.05) 45%,
+      rgba(27, 95, 111, 0.05) 63%,
+      rgba(27, 95, 111, 0.025) 63%,
+      rgba(27, 95, 111, 0.025) 100%
     );
   }
   .page-loading.hide {
