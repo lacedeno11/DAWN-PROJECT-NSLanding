@@ -14,65 +14,71 @@ if (pageLoading) {
 }
 
 // Navbar
-const navbar = document.querySelector(".ic-navbar"),
-  navbarToggler = navbar.querySelector("[data-web-toggle=navbar-collapse]");
+const navbar = document.querySelector(".ic-navbar");
+if (navbar) {
+  const navbarToggler = navbar.querySelector("[data-web-toggle=navbar-collapse]");
 
-navbarToggler.addEventListener("click", function () {
-  const dataTarget = this.dataset.webTarget,
-    targetElement = document.getElementById(dataTarget),
-    isExpanded = this.ariaExpanded === "true";
+  if (navbarToggler) {
+    navbarToggler.addEventListener("click", function () {
+      const dataTarget = this.dataset.webTarget,
+        targetElement = document.getElementById(dataTarget),
+        isExpanded = this.ariaExpanded === "true";
 
-  if (!targetElement) {
-    return;
+      if (!targetElement) {
+        return;
+      }
+
+      navbar.classList.toggle("menu-show");
+      this.ariaExpanded = !isExpanded;
+      navbarToggler.innerHTML = navbar.classList.contains("menu-show")
+        ? '<i class="lni lni-close"></i>'
+        : '<i class="lni lni-menu"></i>';
+    });
   }
 
-  navbar.classList.toggle("menu-show");
-  this.ariaExpanded = !isExpanded;
-  navbarToggler.innerHTML = navbar.classList.contains("menu-show")
-    ? '<i class="lni lni-close"></i>'
-    : '<i class="lni lni-menu"></i>';
-});
-
-// Sticky navbar
-window.addEventListener("scroll", function () {
-  if (this.scrollY >= 72) {
-    navbar.classList.add("sticky");
-  } else {
-    navbar.classList.remove("sticky");
-  }
-});
+  // Sticky navbar
+  window.addEventListener("scroll", function () {
+    if (this.scrollY >= 72) {
+      navbar.classList.add("sticky");
+    } else {
+      navbar.classList.remove("sticky");
+    }
+  });
+}
 
 // Web theme
-const webTheme = document.querySelector("[data-web-trigger=web-theme]"),
-  html = document.querySelector("html");
+const webTheme = document.querySelector("[data-web-trigger=web-theme]");
+const html = document.querySelector("html");
 
-window.addEventListener("load", function () {
-  var theme = localStorage.getItem("Inazuma_WebTheme");
+if (webTheme && html) {
+  window.addEventListener("load", function () {
+    var theme = localStorage.getItem("Inazuma_WebTheme");
 
-  if (theme == "light") {
-    webTheme.innerHTML = '<i class="lni lni-sun"></i>';
-  } else if (theme == "dark") {
-    webTheme.innerHTML = '<i class="lni lni-night"></i>';
-  } else {
-    theme = "light";
+    if (theme == "light") {
+      webTheme.innerHTML = '<i class="lni lni-sun"></i>';
+    } else if (theme == "dark") {
+      webTheme.innerHTML = '<i class="lni lni-night"></i>';
+    } else {
+      theme = "light";
+      localStorage.setItem("Inazuma_WebTheme", theme);
+      webTheme.innerHTML = '<i class="lni lni-night"></i>';
+    }
+
+    html.dataset.webTheme = theme;
+  });
+
+  webTheme.addEventListener("click", function () {
+    var theme = localStorage.getItem("Inazuma_WebTheme");
+
+    webTheme.innerHTML =
+      theme == "dark"
+        ? '<i class="lni lni-sun"></i>'
+        : '<i class="lni lni-night"></i>';
+    theme = theme == "dark" ? "light" : "dark";
     localStorage.setItem("Inazuma_WebTheme", theme);
-    webTheme.innerHTML = '<i class="lni lni-night"></i>';
-  }
-
-  html.dataset.webTheme = theme;
-});
-
-webTheme.addEventListener("click", function () {
-  var theme = localStorage.getItem("Inazuma_WebTheme");
-
-  webTheme.innerHTML =
-    theme == "dark"
-      ? '<i class="lni lni-sun"></i>'
-      : '<i class="lni lni-night"></i>';
-  theme = theme == "dark" ? "light" : "dark";
-  localStorage.setItem("Inazuma_WebTheme", theme);
-  html.dataset.webTheme = theme;
-});
+    html.dataset.webTheme = theme;
+  });
+}
 
 // Scrollspy
 function scrollspy(event) {
@@ -245,5 +251,31 @@ if (st) {
       top: 0,
       behavior: "smooth",
     });
+  });
+}
+
+import { db } from './firebase.js';
+import { ref, push } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-database.js";
+
+const formContact = document.getElementById('form_contact');
+if (formContact) {
+  formContact.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const name = document.getElementById('contact_name').value.trim();
+    const email = document.getElementById('contact_email').value.trim();
+    const message = document.getElementById('contact_message').value.trim();
+
+    try {
+      await push(ref(db, 'contactos'), {
+        nombre: name,
+        correo: email,
+        mensaje: message,
+        fecha: new Date().toISOString()
+      });
+      document.getElementById('contact_result').textContent = "¡Gracias por contactarnos! Pronto te enviaremos información.";
+      formContact.reset();
+    } catch (error) {
+      document.getElementById('contact_result').textContent = "Error al enviar: " + error.message;
+    }
   });
 }

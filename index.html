@@ -177,6 +177,42 @@
             </div>
         </section>
 
+    <section class="flex flex-col items-center justify-center bg-white py-8">
+  <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+    <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">Déjanos tu información de contacto</h2>
+    <form id="form_contact" class="space-y-4">
+      <input
+        type="text"
+        id="contact_name"
+        placeholder="Nombre"
+        required
+        class="block w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+      <input
+        type="email"
+        id="contact_email"
+        placeholder="Correo electrónico"
+        required
+        class="block w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+      <textarea
+        id="contact_message"
+        placeholder="Mensaje"
+        required
+        class="block w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        rows="4"
+      ></textarea>
+      <button
+        type="submit"
+        class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-6 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+      >
+        Enviar
+      </button>
+    </form>
+    <div id="contact_result" class="mt-4 text-center text-sm text-gray-700"></div>
+  </div>
+</section>
+
          <!-- Final CTA Section -->
         <section id="contact" class="cta-gradient text-white">
             <div class="container mx-auto px-6 py-20 text-center">
@@ -237,5 +273,6 @@
             mobileMenu.classList.toggle('hidden');
         });
     </script>
+    <script type="module" src="assets/js/main.js"></script>
 </body>
 </html>
