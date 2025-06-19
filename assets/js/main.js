@@ -255,7 +255,7 @@ if (st) {
 }
 
 import { db } from './firebase.js';
-import { ref, push } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-database.js";
+import { onValue, ref, push } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-database.js";
 
 const formContact = document.getElementById('form_contact');
 if (formContact) {
@@ -263,12 +263,14 @@ if (formContact) {
     e.preventDefault();
     const name = document.getElementById('contact_name').value.trim();
     const email = document.getElementById('contact_email').value.trim();
+    const school = document.getElementById('contact_school').value;
     const message = document.getElementById('contact_message').value.trim();
 
     try {
       await push(ref(db, 'contactos'), {
         nombre: name,
         correo: email,
+        escuela: school,
         mensaje: message,
         fecha: new Date().toISOString()
       });
@@ -279,3 +281,40 @@ if (formContact) {
     }
   });
 }
+
+//inscripciones
+const schoolCountsList = document.getElementById('school_counts');
+if (schoolCountsList) {
+  const contactosRef = ref(db, 'contactos');
+  onValue(contactosRef, (snapshot) => {
+    const data = snapshot.val();
+    const counts = {};
+
+    // Contar inscritos por escuela
+    for (let key in data) {
+      const escuela = data[key].escuela || "Sin escuela";
+      counts[escuela] = (counts[escuela] || 0) + 1;
+    }
+
+    // Mostrar resultados
+    schoolCountsList.innerHTML = '';
+    Object.entries(counts).forEach(([escuela, cantidad]) => {
+      const nombreEscuela = nombresEscuelas[escuela] || escuela;
+      const li = document.createElement('li');
+      li.textContent = `${nombreEscuela}: ${cantidad} inscrito(s)`;
+      schoolCountsList.appendChild(li);
+    });
+
+    // Si no hay datos
+    if (Object.keys(counts).length === 0) {
+      schoolCountsList.innerHTML = '<li>No hay inscritos aún.</li>';
+    }
+  });
+}
+
+const nombresEscuelas = {
+  escuela1: "Ciencias Naturales",
+  escuela2: "Idiomas",
+  escuela3: "Ciencias Financieras",
+  escuela4: "Tecnologías"
+};

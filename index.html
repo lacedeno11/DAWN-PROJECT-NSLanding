@@ -177,7 +177,8 @@
             </div>
         </section>
 
-    <section class="flex flex-col items-center justify-center bg-white py-8">
+    <section class="flex flex-col md:flex-row items-center justify-center bg-white py-8 gap-8">
+  <!-- Formulario -->
   <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
     <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">Déjanos tu información de contacto</h2>
     <form id="form_contact" class="space-y-4">
@@ -195,6 +196,17 @@
         required
         class="block w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
+      <select
+        id="contact_school"
+        required
+        class="block w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      >
+        <option value="" disabled selected>Selecciona una escuela</option>
+        <option value="escuela1">Ciencias Naturales</option>
+        <option value="escuela2">Idiomas</option>
+        <option value="escuela3">Ciencias Financieras</option>
+        <option value="escuela4">Tecnología</option>
+      </select>
       <textarea
         id="contact_message"
         placeholder="Mensaje"
@@ -210,6 +222,11 @@
       </button>
     </form>
     <div id="contact_result" class="mt-4 text-center text-sm text-gray-700"></div>
+  </div>
+  <!-- Inscritos por escuela -->
+  <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+    <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">Inscritos por cada escuela</h2>
+    <ul id="school_counts" class="space-y-2 text-gray-700 text-center"></ul>
   </div>
 </section>
 
