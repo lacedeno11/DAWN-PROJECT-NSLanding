@@ -1,3 +1,5 @@
+import './firebase.js';
+
 "use strict";
 
 // Page loading
