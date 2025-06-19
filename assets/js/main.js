@@ -90,6 +90,9 @@ function scrollspy(event) {
       document.documentElement.scrollTop ||
       document.body.scrollTop;
 
+  // Quitar 'active' de todos los links antes de asignar al actual
+  links.forEach(link => link.classList.remove("active"));
+
   for (let i = 0; i < links.length; i++) {
     var currentLink = links[i],
       dataTarget = currentLink.getAttribute("href"),
@@ -101,10 +104,7 @@ function scrollspy(event) {
         targetElement.offsetTop <= topminus &&
         targetElement.offsetTop + targetElement.offsetHeight > topminus
       ) {
-        document.querySelector(".ic-page-scroll").classList.remove("active");
         currentLink.classList.add("active");
-      } else {
-        currentLink.classList.remove("active");
       }
     }
   }
@@ -292,10 +292,12 @@ if (schoolCountsList) {
     const data = snapshot.val();
     const counts = {};
 
-    // Contar inscritos por escuela
-    for (let key in data) {
-      const escuela = data[key].escuela || "Sin escuela";
-      counts[escuela] = (counts[escuela] || 0) + 1;
+    if (data) {
+      // Contar inscritos por escuela
+      for (let key in data) {
+        const escuela = data[key].escuela || "Sin escuela";
+        counts[escuela] = (counts[escuela] || 0) + 1;
+      }
     }
 
     // Mostrar resultados
